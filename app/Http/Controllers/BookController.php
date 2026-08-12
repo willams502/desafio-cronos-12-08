@@ -32,5 +32,13 @@ class BookController extends Controller
         return view('books.index', compact('books', 'categories', 'category', 'q'));
     }
 
+    /**
+     * Display the specified book details.
+     */
+    public function show(Book $book)
+    {
+        return view('books.show', compact('book'));
+    }
+
     //
 }

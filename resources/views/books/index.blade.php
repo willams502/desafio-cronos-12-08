@@ -30,6 +30,7 @@
                     <th>Categoria</th>
                     <th>Ano</th>
                     <th>Situação</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +46,9 @@
                             @else
                                 <span class="badge bg-success">Disponível</span>
                             @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('books.show', $book->id) }}" class="btn btn-sm btn-primary">Detalhes</a>
                         </td>
                     </tr>
                 @empty
