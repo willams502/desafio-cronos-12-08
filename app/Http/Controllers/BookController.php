@@ -40,5 +40,32 @@ class BookController extends Controller
         return view('books.show', compact('book'));
     }
 
+    /**
+     * Show form to create a new book.
+     */
+    public function create()
+    {
+        return view('books.create');
+    }
+
+    /**
+     * Store a newly created book with server-side validation.
+     */
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'publication_year' => 'nullable|integer',
+            'category' => 'nullable|string|max:255',
+            'borrowed_by' => 'nullable|string|max:255',
+            'expected_return_date' => 'nullable|date',
+        ]);
+
+        $book = Book::create($data);
+
+        return redirect()->route('books.show', $book->id)->with('success', 'Livro criado com sucesso.');
+    }
+
     //
 }

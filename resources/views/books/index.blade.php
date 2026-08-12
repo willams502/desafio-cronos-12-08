@@ -3,6 +3,9 @@
 @section('content')
 <div class="container">
     <h1>Acervo</h1>
+    <div class="mb-3">
+        <a href="{{ route('books.create') }}" class="btn btn-success">Novo livro</a>
+    </div>
 
     <form method="GET" class="row g-2 mb-3">
         <div class="col-md-4">
