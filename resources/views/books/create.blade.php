@@ -8,18 +8,18 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form method="POST" action="{{ route('books.store') }}">
+    <form method="POST" action="{{ route('books.store') }}" id="createPageForm" novalidate>
         @csrf
 
         <div class="mb-3">
             <label for="title" class="form-label">Título *</label>
-            <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
+            <input type="text" name="title" id="title" required class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
             @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 
         <div class="mb-3">
             <label for="author" class="form-label">Autor *</label>
-            <input type="text" name="author" id="author" class="form-control @error('author') is-invalid @enderror" value="{{ old('author') }}">
+            <input type="text" name="author" id="author" required class="form-control @error('author') is-invalid @enderror" value="{{ old('author') }}">
             @error('author')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 
@@ -51,4 +51,32 @@
         <a href="{{ route('books.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
+@section('scripts')
+<script>
+    (function () {
+        'use strict'
+
+        var form = document.getElementById('createPageForm');
+        if (!form) return;
+
+        form.addEventListener('submit', function (event) {
+            form.classList.remove('was-validated');
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                form.classList.add('was-validated');
+            }
+        }, false);
+
+        @if($errors->any())
+            // mark fields with server-side errors
+            @foreach($errors->keys() as $key)
+                var el = document.querySelector('[name="' + '{{ $key }}' + '"]');
+                if (el) el.classList.add('is-invalid');
+            @endforeach
+        @endif
+
+    })();
+</script>
+@endsection
 @endsection

@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        // Seed initial books (RF-06)
+        $this->call(\Database\Seeders\BookSeeder::class);
     }
 }
